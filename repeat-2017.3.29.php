@@ -1,75 +1,75 @@
 <?php
 
 /**
- * *ÓÃ¶Ô±ÈMD5µÄ·½·¨´¦ÀíÔÓËéÖØ¸´ÎÄ¼ş
- * *È·ÈÏÎŞÎóºóÊÖ¶¯É¾³ıÔ­ÎÄ¼ş
- * *Îª¿ìËÙ¸´ÖÆÎÄ¼ş£¬¶Ô½Ï´óµÄÎÄ¼ş²»¸´ÖÆ
+ * *ç”¨å¯¹æ¯”MD5çš„æ–¹æ³•å¤„ç†æ‚ç¢é‡å¤æ–‡ä»¶
+ * *ç¡®è®¤æ— è¯¯åæ‰‹åŠ¨åˆ é™¤åŸæ–‡ä»¶
+ * *ä¸ºå¿«é€Ÿå¤åˆ¶æ–‡ä»¶ï¼Œå¯¹è¾ƒå¤§çš„æ–‡ä»¶ä¸å¤åˆ¶
  *
- * *Îª±£»¤Êı¾İ£¬¶ÔÒÑ¾­´æÔÚµÄ $update_path Ä¿Â¼×÷ÁËÖØÃüÃû
+ * *ä¸ºä¿æŠ¤æ•°æ®ï¼Œå¯¹å·²ç»å­˜åœ¨çš„ $update_path ç›®å½•ä½œäº†é‡å‘½å
  * 
- * *²¿·Ö´úÂëÀ´Ô´ÓÚÍøÂç
+ * *éƒ¨åˆ†ä»£ç æ¥æºäºç½‘ç»œ
  */
  
 if(php_sapi_name() === 'cli'){
-	echo "\r\n  ==================== ¼ì²âµ½ÒÔ CLI Ä£Ê½Ö´ĞĞ½Å±¾ =====================\r\n";
-	echo "\r\n  ==================== ÉèÖÃÒ»¸ö´ı´¦ÀíµÄÄ¿Â¼ =====================\r\n";
+	echo "\r\n  ==================== æ£€æµ‹åˆ°ä»¥ CLI æ¨¡å¼æ‰§è¡Œè„šæœ¬ =====================\r\n";
+	echo "\r\n  ==================== è®¾ç½®ä¸€ä¸ªå¾…å¤„ç†çš„ç›®å½• =====================\r\n";
     for($i = 0;$i < 10;$i++){
         ob_implicit_flush(1);
-        fwrite(STDOUT, "\r\n    ÇëÊäÈë´ı´¦ÀíµÄÄ¿Â¼(ÈçD:/doc):");
+        fwrite(STDOUT, "\r\n    è¯·è¾“å…¥å¾…å¤„ç†çš„ç›®å½•(å¦‚D:/doc):");
         $source_path = trim(fgets(STDIN));
         if(empty($source_path)or!file_exists($source_path)){
             if($i === 9){
-                echo "\r\n\r\n\r\n    ÊäÈë³¬Ê±,½Å±¾Í£Ö¹Ö´ĞĞ\r\n\r\n";
+                echo "\r\n\r\n\r\n    è¾“å…¥è¶…æ—¶,è„šæœ¬åœæ­¢æ‰§è¡Œ\r\n\r\n";
                 sleep(3);
                 exit(0);
             }
-            echo "\r\n   $source_path ¸ÃÄ¿Â¼²»´æÔÚ£¬ÇëÖØĞÂÊäÈë\r\n";
+            echo "\r\n   $source_path è¯¥ç›®å½•ä¸å­˜åœ¨ï¼Œè¯·é‡æ–°è¾“å…¥\r\n";
         }else{
-            echo "\r\n    ´ı´¦ÀíµÄÄ¿Â¼ÊÇ $source_path\r\n\r\n";
+            echo "\r\n    å¾…å¤„ç†çš„ç›®å½•æ˜¯ $source_path\r\n\r\n";
             break;
         }
     }
-	echo "\r\n  ==================== ÉèÖÃÒ»¸öÊı×Ö =====================\r\n";
-    echo "\r\n    Îª¼Ó¿ì´¦ÀíËÙ¶È£¬Ì«´óµÄÎÄ¼ş½«±»Ìø¹ı£¬½Å±¾Ö´ĞĞÍê±ÏºóÇë×ÔĞĞ¸´ÖÆ\r\n";
-    echo "\r\n    ¸ÃÖµÖ»ÄÜÊÇ´óÓÚ 0 µÄÊı×Ö£¬Ä¬ÈÏÖµÎª 100M\r\n\r\n";
+	echo "\r\n  ==================== è®¾ç½®ä¸€ä¸ªæ•°å­— =====================\r\n";
+    echo "\r\n    ä¸ºåŠ å¿«å¤„ç†é€Ÿåº¦ï¼Œå¤ªå¤§çš„æ–‡ä»¶å°†è¢«è·³è¿‡ï¼Œè„šæœ¬æ‰§è¡Œå®Œæ¯•åè¯·è‡ªè¡Œå¤åˆ¶\r\n";
+    echo "\r\n    è¯¥å€¼åªèƒ½æ˜¯å¤§äº 0 çš„æ•°å­—ï¼Œé»˜è®¤å€¼ä¸º 100M\r\n\r\n";
     for($i = 0;$i < 10;$i++){
-        fwrite(STDOUT, "\r\n    ÇëÊäÈë×î´óÊıÖµ(²»ÊäÈëÔòÄ¬ÈÏÎª100):");
+        fwrite(STDOUT, "\r\n    è¯·è¾“å…¥æœ€å¤§æ•°å€¼(ä¸è¾“å…¥åˆ™é»˜è®¤ä¸º100):");
         $maxlenth = trim(fgets(STDIN));
         if(empty($maxlenth)){
             $maxlenth = '104857600';
-            echo "\r\n    ´óÓÚ 100M µÄÎÄ¼şÇë×ÔĞĞ¸´ÖÆ";
+            echo "\r\n    å¤§äº 100M çš„æ–‡ä»¶è¯·è‡ªè¡Œå¤åˆ¶";
             break;
         }elseif(is_numeric($maxlenth) and $maxlenth > 0){
-            echo "\r\n    ´óÓÚ $maxlenth MµÄÎÄ¼şÇë×ÔĞĞ¸´ÖÆ";
+            echo "\r\n    å¤§äº $maxlenth Mçš„æ–‡ä»¶è¯·è‡ªè¡Œå¤åˆ¶";
             $maxlenth = 1048576 * $maxlenth;
             break;
         }else{
             if($i === 9){
-                echo "\r\n\r\n\r\n    ÊäÈë³¬Ê±,½Å±¾Í£Ö¹Ö´ĞĞ\r\n\r\n";
+                echo "\r\n\r\n\r\n    è¾“å…¥è¶…æ—¶,è„šæœ¬åœæ­¢æ‰§è¡Œ\r\n\r\n";
                 sleep(3);
                 exit(0);
             }
-            echo "\r\n    ÊäÈë´íÎó,ÇëÊäÈë´óÓÚ 0 µÄÊı×Ö \r\n";
+            echo "\r\n    è¾“å…¥é”™è¯¯,è¯·è¾“å…¥å¤§äº 0 çš„æ•°å­— \r\n";
         }
     }
 }else{
-    $source_path = 'D:/doc'; # ĞèÒªÈ¥ÖØ¸´ÎÄ¼şµÄÄ¿Â¼£¬Õâ¸ö±ØĞëÓĞ
-    $maxlenth = '104857600'; # Îª¿ìËÙ¸´ÖÆÎÄ¼ş£¬·ÅÆú´óÓÚ100MµÄÎÄ¼ş
+    $source_path = 'D:/doc'; # éœ€è¦å»é‡å¤æ–‡ä»¶çš„ç›®å½•ï¼Œè¿™ä¸ªå¿…é¡»æœ‰
+    $maxlenth = '104857600'; # ä¸ºå¿«é€Ÿå¤åˆ¶æ–‡ä»¶ï¼Œæ”¾å¼ƒå¤§äº100Mçš„æ–‡ä»¶
 }
 
-header("Content-type: text/html;charset=utf-8");
+//header("Content-type: text/html;charset=utf-8");
 set_time_limit(0);
 date_default_timezone_set('Asia/Shanghai');
 $t1 = microtime(true);
 
-$update_path = $source_path . '-update';     # ·ÇÖØ¸´ÎÄ¼şµÄ±£´æÄ¿Â¼
-$log_path = dirname(__FILE__) . '/phplog';   # ²Ù×÷¼ÇÂ¼±£´æÄ¿Â¼
-$compare = 'false';                          # ÓÃÓÚ±È½ÏÄÇĞ©ÎÄ¼ş·¢ÉúÁË±ä»¯£¬È¡Öµ true ºÍ false
+$update_path = $source_path . '-update';     # éé‡å¤æ–‡ä»¶çš„ä¿å­˜ç›®å½•
+$log_path = dirname(__FILE__) . '/phplog';   # æ“ä½œè®°å½•ä¿å­˜ç›®å½•
+$compare = 'false';                          # ç”¨äºæ¯”è¾ƒé‚£äº›æ–‡ä»¶å‘ç”Ÿäº†å˜åŒ–ï¼Œå–å€¼ true å’Œ false
 
 
-// ¶Ô MD5 ²»Í¬µÄÎÄ¼ş×÷¼ÇÂ¼
+// å¯¹ MD5 ä¸åŒçš„æ–‡ä»¶ä½œè®°å½•
 if($compare == 'true'){
-    if(!file_exists($log_path . '/all.log')) die("ÎÄ¼ş²»´æÔÚ");
+    if(!file_exists($log_path . '/all.log')) die("æ–‡ä»¶ä¸å­˜åœ¨");
     $files = file_get_contents($log_path . '/all.log');
     $array_files = explode("\r\n", $files);
     
@@ -79,22 +79,22 @@ if($compare == 'true'){
         $filename = trim($array_files_md5['0']);
         $md5 = trim($array_files_md5['1']);
 	    if(!file_exists($filename)) {
-		    echo "ÕÒ²»µ½µÄÎÄ¼ş $filename \r\n<br>";	
+		    echo "æ‰¾ä¸åˆ°çš„æ–‡ä»¶ $filename \r\n<br>";	
 			continue;
 			}
         $md5file = md5_file($filename);
         if($md5file !== $md5) @file_put_contents($log_path . '/changes.log', $filename, FILE_APPEND);
         }
-    # rm_empty_dir($path);      # É¾³ı¿ÕÄ¿Â¼
+    # rm_empty_dir($path);      # åˆ é™¤ç©ºç›®å½•
 exit(0);
 }
 
 
 
 
-if(!file_exists($source_path)) die(" ĞèÒªÈ¥ÖØ¸´ÎÄ¼şµÄÄ¿Â¼²»´æÔÚ£¬Ê²Ã´Ò²Ã»¸É ¡£;)");
-echo "\r\n  ÕıÔÚ¶ÁÈ¡ÎÄ¼şµÄ MD5 Öµ\r\n";
-custoize_flush();
+if(!file_exists($source_path)) die(" éœ€è¦å»é‡å¤æ–‡ä»¶çš„ç›®å½•ä¸å­˜åœ¨ï¼Œä»€ä¹ˆä¹Ÿæ²¡å¹² ã€‚;)");
+echo "\r\n  æ­£åœ¨è¯»å–æ–‡ä»¶çš„ MD5 å€¼\r\n";
+customize_flush();
 $array_files = getDir($source_path);
 $maxstr = getItem($array_files);
 $maxlen = strlen($maxstr) + 2;
@@ -104,11 +104,11 @@ $array_files_md5 = array();
 for($i = 0;$i < $max;$i++){
     $filename = $array_files[$i];
     $md5 = md5_file($filename) . "\r\n";
-    $filename = str_pad($filename, $maxlen);         # ÓÃ¿Õ¸ñ²¹È«
+    $filename = str_pad($filename, $maxlen);         # ç”¨ç©ºæ ¼è¡¥å…¨
     $array_files_md5 = $array_files_md5 + array($filename => $md5,);
     $filemd5 .= $filename . ' ////  ' . $md5;
     }
-$array_files_compact = array_flip($array_files_md5);    # É¾³ıÊı×éÖĞµÄÖØ¸´key
+$array_files_compact = array_flip($array_files_md5);    # åˆ é™¤æ•°ç»„ä¸­çš„é‡å¤key
 $min = count($array_files_compact); 
 if(!file_exists($log_path)) @mkdir($log_path, '0777', true);
 if(file_exists($log_path . '/all.log')) unlink($log_path . '/all.log');
@@ -122,8 +122,8 @@ unset($array_files_md5);
 unset($md5);
 unset($filemd5);
 unset($filename);
-# $maxlen, $max, $min ºÍ $array_files_compact ²»ÄÜÊÍ·Å
-echo "\r\n  ÎÄ¼ş¶ÁÈ¡Íê±Ï£¬Éú³ÉÁËÎŞÖØ¸´ÎÄ¼şÁĞ±í²¢×÷ÁË¼ÇÂ¼ \r\n  ÕıÔÚ¸´ÖÆÎÄ¼şÖĞ£¬ÇëÄÍĞÄµÈ´ı ...... \r\n";
+# $maxlen, $max, $min å’Œ $array_files_compact ä¸èƒ½é‡Šæ”¾
+echo "\r\n  æ–‡ä»¶è¯»å–å®Œæ¯•ï¼Œç”Ÿæˆäº†æ— é‡å¤æ–‡ä»¶åˆ—è¡¨å¹¶ä½œäº†è®°å½• \r\n  æ­£åœ¨å¤åˆ¶æ–‡ä»¶ä¸­ï¼Œè¯·è€å¿ƒç­‰å¾… ...... \r\n";
 foreach($array_files_compact as $md5 => $srcfile){
     $srcfile = trim($srcfile);
     copyfiles($srcfile);
@@ -131,9 +131,9 @@ foreach($array_files_compact as $md5 => $srcfile){
 file_exists($log_path . '/false.log') ? $str = file_get_contents($log_path . '/false.log') : $str = '';
 $false = substr_count($str,'////');
 $t2 = microtime(true);
-echo "\r\n  Ö´ĞĞÍê±Ï£¬¹²¼Æ  " . $max . " ¸ö \r\n  È¥µôÖØ¸´ºóÊ£Óà  " . $min . " ¸ö"; 
-echo "\r\n  Ã»ÓĞ¸´ÖÆµÄÎÄ¼ş  " . $false . " ¸ö¡£Ïà¹ØÎÄµµ " . $log_path . "/false.log \r\n  ¹²¼ÆºÄÊ± " . round($t2-$t1,3) . " Ãë";
-echo "\r\n  ¼ì²â¸´ÖÆ¹ı³ÌÖĞ¿ÉÄÜÒÅÂ©µÄ´óÎÄ¼ş ......  Èç¹ûÓĞÂ©µôµÄÎÄ¼ş£¬Çë¶¯ÊÖ¸´ÖÆ \r\n ";
+echo "\r\n  æ‰§è¡Œå®Œæ¯•ï¼Œå…±è®¡  " . $max . " ä¸ª \r\n  å»æ‰é‡å¤åå‰©ä½™  " . $min . " ä¸ª"; 
+echo "\r\n  æ²¡æœ‰å¤åˆ¶çš„æ–‡ä»¶  " . $false . " ä¸ªã€‚ç›¸å…³æ–‡æ¡£ " . $log_path . "/false.log \r\n  å…±è®¡è€—æ—¶ " . round($t2-$t1,3) . " ç§’";
+echo "\r\n  æ£€æµ‹å¤åˆ¶è¿‡ç¨‹ä¸­å¯èƒ½é—æ¼çš„å¤§æ–‡ä»¶ ......  å¦‚æœæœ‰æ¼æ‰çš„æ–‡ä»¶ï¼Œè¯·åŠ¨æ‰‹å¤åˆ¶ \r\n ";
 
 $miss = '';
 foreach($array_files_compact as $md5 => $srcfile){
@@ -150,15 +150,15 @@ foreach($array_files_compact as $md5 => $srcfile){
         #echo  $dstfile ."\r\n";
         }
     }
-echo "\r\n  ÒÅÂ©ÁË " . substr_count($miss,"\r\n") . " ¸öÎÄ¼ş   ÒÅÂ©µÄÎÄ¼şÊÇ \r\n\r\n $miss ";
+echo "\r\n  é—æ¼äº† " . substr_count($miss,"\r\n") . " ä¸ªæ–‡ä»¶   é—æ¼çš„æ–‡ä»¶æ˜¯ \r\n\r\n $miss ";
 file_put_contents($log_path . '/large.log', $miss);
 sleep(30);
 exit(0);
 
-/********************º¯ÊıÇø£¬ÎŞĞè¸Ä¶¯*********************/
+/********************å‡½æ•°åŒºï¼Œæ— éœ€æ”¹åŠ¨*********************/
 
 /**
- * *Ë¢ĞÂ»º³å
+ * *åˆ·æ–°ç¼“å†²
  */	
 function customize_flush(){
     if(php_sapi_name() === 'cli'){
@@ -176,10 +176,10 @@ function customize_flush(){
 }
 
 /**
- * *¸´ÖÆÎÄ¼ş£¬log ±»¼ÇÂ¼
- * *Ê¹ÓÃ copyfiles($srcfile)£¬ÎŞ·µ»ØÖµ
+ * *å¤åˆ¶æ–‡ä»¶ï¼Œlog è¢«è®°å½•
+ * *ä½¿ç”¨ copyfiles($srcfile)ï¼Œæ— è¿”å›å€¼
  *
- * @²ÎÊı $srcfile Ô­ÎÄ¼ş£¬$update_path Ä¿±êÄ¿Â¼£¬$maxlenth ÏŞÖÆ×î´óÎÄ¼ş
+ * @å‚æ•° $srcfile åŸæ–‡ä»¶ï¼Œ$update_path ç›®æ ‡ç›®å½•ï¼Œ$maxlenth é™åˆ¶æœ€å¤§æ–‡ä»¶
  */	
 function copyfiles($srcfile){
 
@@ -198,7 +198,7 @@ function copyfiles($srcfile){
         $mode = $srcfileinfo['perms'];
         @mkdir($dstpath, $mode, true);
         }
-    # Èç¹ûÄ¿±êÎÄ¼ş´æÔÚ£¬ÔòĞÂÎÄ¼şÃûÎªÔ­ÎÄ¼şÃû-ÎÄ¼şÈÕÆÚ-4Î»Ëæ»úÊı
+    # å¦‚æœç›®æ ‡æ–‡ä»¶å­˜åœ¨ï¼Œåˆ™æ–°æ–‡ä»¶åä¸ºåŸæ–‡ä»¶å-æ–‡ä»¶æ—¥æœŸ-4ä½éšæœºæ•°
     if (file_exists($dstfile)){
 	    $dstfilemd5 = md5_file($dstfile);
 		if($srcfileinfo['md5'] !== $dstfilemd5){ 
@@ -207,7 +207,7 @@ function copyfiles($srcfile){
 		    }
         }
     $srcfileinfo['size'] < $maxlenth ? $cp = copy($srcfile, $dstfile) : $cp = 0;
-    // ¼ÇÂ¼
+    // è®°å½•
 	if(file_exists($log_path . '/false.log')) unlink($log_path . '/false.log');
     $log = str_pad($srcfile, $maxlen);
     if ($cp !== 1 ) @file_put_contents($log_path . '/false.log', $log . "  ////  no \r\n", FILE_APPEND);
@@ -215,9 +215,9 @@ function copyfiles($srcfile){
     }
 
 /**
- * *»ñÈ¡Ëæ»ú×Ö´®
+ * *è·å–éšæœºå­—ä¸²
  * 
- * @²ÎÊı $n=4 ×Ö´®
+ * @å‚æ•° $n=4 å­—ä¸²
  */
 function rand_char($n=4) { 
     $rand = '';
@@ -230,9 +230,9 @@ function rand_char($n=4) {
 }
 
 /**
- * *È¡Êı×é³¤¶È×î³¤µÄÖµ
+ * *å–æ•°ç»„é•¿åº¦æœ€é•¿çš„å€¼
  * 
- * @²ÎÊı $arrayÊı×é
+ * @å‚æ•° $arrayæ•°ç»„
  */
 function getItem($array) {
     $index = 0;
@@ -244,11 +244,11 @@ function getItem($array) {
 }
 
 /**
- * *±éÀúÄ¿Â¼ÖĞµÄÎÄ¼ş
- * *ÓÉ searchDir() ºÍ getDir() Á½¸öº¯Êı×é³É£¬
- * *Ê¹ÓÃ getDir($path) £¬·µ»ØÊı×é
+ * *éå†ç›®å½•ä¸­çš„æ–‡ä»¶
+ * *ç”± searchDir() å’Œ getDir() ä¸¤ä¸ªå‡½æ•°ç»„æˆï¼Œ
+ * *ä½¿ç”¨ getDir($path) ï¼Œè¿”å›æ•°ç»„
  *
- * @²ÎÊı $pathÄ¿Â¼Â·¾¶
+ * @å‚æ•° $pathç›®å½•è·¯å¾„
  */	
 function searchDir($path, & $data){
     if(is_dir($path)){
@@ -271,16 +271,16 @@ function getDir($path){
     }
 
 /**
- * *»ñÈ¡ÎÄ¼şĞÅÏ¢
- * *ÓÉÁ½¸öº¯Êı×é³É  customize_fileinfo() , minetype_array() 
- * *ÓÃ·¨ customize_fileinfo($file)£¬·µ»ØÊı×é
+ * *è·å–æ–‡ä»¶ä¿¡æ¯
+ * *ç”±ä¸¤ä¸ªå‡½æ•°ç»„æˆ  customize_fileinfo() , minetype_array() 
+ * *ç”¨æ³• customize_fileinfo($file)ï¼Œè¿”å›æ•°ç»„
  *
- * @²ÎÊı $file °üÀ¨Â·¾¶ºÍÎÄ¼şÃû
+ * @å‚æ•° $file åŒ…æ‹¬è·¯å¾„å’Œæ–‡ä»¶å
  */
 
 function customize_fileinfo($file){
     
-    if(!file_exists($file)) die("ÎÄ¼ş²»´æÔÚ»òÕßÊÇ³¬Á´½Ó");
+    if(!file_exists($file)) die("æ–‡ä»¶ä¸å­˜åœ¨æˆ–è€…æ˜¯è¶…é“¾æ¥");
     $file_info = array();
     $realpath = realpath($file);
     $pathinfo = pathinfo($file);
@@ -368,7 +368,7 @@ function customize_fileinfo($file){
 
 function minetype_array(){
     $mimeType = array(
-        // applications(Ó¦ÓÃÀàĞÍ)
+        // applications(åº”ç”¨ç±»å‹)
         'ai' => 'application/postscript',
         'eps' => 'application/postscript',
         'exe' => 'application/octet-stream',
@@ -381,7 +381,7 @@ function minetype_array(){
         'odt' => 'application/vnd.oasis.opendocument.text',
         'swf' => 'application/x-shockwave-flash',
         
-        // archives(µµ°¸ÀàĞÍ)
+        // archives(æ¡£æ¡ˆç±»å‹)
         'gz' => 'application/x-gzip',
         'tgz' => 'application/x-gzip',
         'zip' => 'application/zip',
@@ -392,7 +392,7 @@ function minetype_array(){
         'tbz' => 'application/x-bzip2',
         '7z' => 'application/x-7z-compressed',
         
-        // texts(ÎÄ±¾ÀàĞÍ)
+        // texts(æ–‡æœ¬ç±»å‹)
         'txt' => 'text/plain',
         'php' => 'text/x-php',
         'html' => 'text/html',
@@ -408,7 +408,7 @@ function minetype_array(){
         'rb' => 'text/x-ruby',
         'sh' => 'text/x-shellscript',
         
-        // images(Í¼Æ¬ÀàĞÍ)
+        // images(å›¾ç‰‡ç±»å‹)
         'bmp' => 'image/x-ms-bmp',
         'jpg' => 'image/jpeg',
         'jpeg' => 'image/jpeg',
@@ -419,7 +419,7 @@ function minetype_array(){
         'tga' => 'image/x-targa',
         'psd' => 'image/vnd.adobe.photoshop',
         
-        // audio(ÒôÆµÀàĞÍ)
+        // audio(éŸ³é¢‘ç±»å‹)
         'mp3' => 'audio/mpeg',
         'mid' => 'audio/midi',
         'ogg' => 'audio/ogg',
@@ -427,7 +427,7 @@ function minetype_array(){
         'wav' => 'audio/wav',
         'wma' => 'audio/x-ms-wma',
         
-        // video(ÊÓÆµÀàĞÍ)
+        // video(è§†é¢‘ç±»å‹)
         'avi' => 'video/x-msvideo',
         'dv' => 'video/x-dv',
         'mp4' => 'video/mp4',
@@ -442,19 +442,19 @@ function minetype_array(){
     }
 	
 /**
- * *É¾³ıËùÓĞ¿ÕÄ¿Â¼
+ * *åˆ é™¤æ‰€æœ‰ç©ºç›®å½•
  * 
- * @²ÎÊı $pathÄ¿Â¼Â·¾¶
+ * @å‚æ•° $pathç›®å½•è·¯å¾„
  */
 function rm_empty_dir($path){
     if(is_dir($path) && ($handle = opendir($path)) !== false){
-        while(($file = readdir($handle)) !== false){ // ±éÀúÎÄ¼ş¼Ğ
+        while(($file = readdir($handle)) !== false){ // éå†æ–‡ä»¶å¤¹
             if($file != '.' && $file != '..'){
-                $curfile = $path . '/' . $file;//µ±Ç°Ä¿Â¼
-                if(is_dir($curfile)){ // Ä¿Â¼
-                    rm_empty_dir($curfile);//Èç¹ûÊÇÄ¿Â¼Ôò¼ÌĞø±éÀú
-                    if(count(scandir($curfile)) == 2){ // Ä¿Â¼Îª¿Õ,=2ÊÇÒòÎª.ºÍ..´æÔÚ
-                        rmdir($curfile);//É¾³ı¿ÕÄ¿Â¼
+                $curfile = $path . '/' . $file;//å½“å‰ç›®å½•
+                if(is_dir($curfile)){ // ç›®å½•
+                    rm_empty_dir($curfile);//å¦‚æœæ˜¯ç›®å½•åˆ™ç»§ç»­éå†
+                    if(count(scandir($curfile)) == 2){ // ç›®å½•ä¸ºç©º,=2æ˜¯å› ä¸º.å’Œ..å­˜åœ¨
+                        rmdir($curfile);//åˆ é™¤ç©ºç›®å½•
                         }
                     }
                 }
@@ -464,9 +464,9 @@ function rm_empty_dir($path){
     }
 	
 /**
- * *½¨Á¢Ä¿Â¼
+ * *å»ºç«‹ç›®å½•
  * 
- * @²ÎÊı $dir ×Ö´®£¬$mode Ö¸¶¨Ä¿Â¼ÊôĞÔ
+ * @å‚æ•° $dir å­—ä¸²ï¼Œ$mode æŒ‡å®šç›®å½•å±æ€§
  */
 function mkdir_empty($dir, $mode){
     if(empty($mode)) $mode = 0777;
