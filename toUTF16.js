@@ -1,4 +1,4 @@
-// ÓÃ·¨ string.toUTF16()
+// ç”¨æ³• string.toUTF16()
 
 String.prototype.toUTF16 = function() {
     var str = this;
