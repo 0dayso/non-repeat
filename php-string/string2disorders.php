@@ -1,15 +1,15 @@
 <?php
 /**
- * ×Ö´®ÂÒÐò PHP&JS 
+ * å­—ä¸²ä¹±åº PHP&JS 
  *
- * php ÖÐ°Ñ×Ö´®ÂÒÐòºóÊä³ö¸ø¿Í»§»úµÄ JAVASCRIPT , JAVASCRIPT ÖÐ»Ö¸´
- * ÔÚÖ¸¶¨³¤¶ÈÌáÈ¡Ò»¸ö×Ö·û£¬²¢°ÑÕâÒ»×é×Ö´®µ¹Ðò£¬
- * ÐÎ³ÉÕâÑùµÄ¼¸×é×Ö´®£¬×îºóÃ²ËÆ¾ÍÐÎ³ÉÁËÊý×Ö¡£
+ * php ä¸­æŠŠå­—ä¸²ä¹±åºåŽè¾“å‡ºç»™å®¢æˆ·æœºçš„ JAVASCRIPT , JAVASCRIPT ä¸­æ¢å¤
+ * åœ¨æŒ‡å®šé•¿åº¦æå–ä¸€ä¸ªå­—ç¬¦ï¼Œå¹¶æŠŠè¿™ä¸€ç»„å­—ä¸²å€’åºï¼Œ
+ * å½¢æˆè¿™æ ·çš„å‡ ç»„å­—ä¸²ï¼Œæœ€åŽè²Œä¼¼å°±å½¢æˆäº†æ•°å­—ã€‚
  * 
- * Ð§¹ûÒ»°ã
+ * æ•ˆæžœä¸€èˆ¬
  */
 
-$str = "0123456789²âÊÔab¡°\"'cdefghijklmnopÄãºÃ¶à×Ö½Ú×Ö·ûÂÒ";
+$str = "0123456789æµ‹è¯•abâ€œ\"'cdefghijklmnopä½ å¥½å¤šå­—èŠ‚å­—ç¬¦ä¹±";
 
 $url = 'http://www.baidu.com';
 $str = httpget($url);
@@ -25,8 +25,8 @@ for($i = 0;$i < $r;$i++){
         $n2 = $j * $r + $i;
         if($m < $n2) break;
 		
-        $nstr = mb_substr($str, $n2, 1, 'GB18030') . $nstr;  // ÉùÃ÷ $str µÄ±àÂë
-        # $nstr = @$str[$n2].$nstr;    	                 // ¶à×Ö½ÚÂÒÂë
+        $nstr = mb_substr($str, $n2, 1, 'GB18030') . $nstr;  // å£°æ˜Ž $str çš„ç¼–ç 
+        # $nstr = @$str[$n2].$nstr;    	                 // å¤šå­—èŠ‚ä¹±ç 
     }
     $nstr = "\"" . addJsSlashes($nstr) . "\",";
     // addslashes addcslashes
@@ -44,8 +44,8 @@ function httpget($url){
     
     $ch = curl_init();
     curl_setopt($ch, CURLOPT_URL, $url);
-    curl_setopt($ch, CURLOPT_HEADER, 0);            // ²»ÏìÓ¦ header
-    curl_setopt($ch, CURLOPT_NOBODY, FALSE);        // Êä³ö body Çø
+    curl_setopt($ch, CURLOPT_HEADER, 0);            // ä¸å“åº” header
+    curl_setopt($ch, CURLOPT_NOBODY, FALSE);        // è¾“å‡º body åŒº
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
     curl_setopt($ch, CURLOPT_FOLLOWLOCATION, FALSE);
     curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
