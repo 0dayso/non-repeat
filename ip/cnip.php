@@ -10,7 +10,7 @@
  *
  */
  
-# ****** »ñÈ¡APNICµÄÊı¾İ,½¨Á¢json¸ñÊ½Êı¾İ
+# ****** è·å–APNICçš„æ•°æ®,å»ºç«‹jsonæ ¼å¼æ•°æ®
 function get_china_ip_table($ipjson){
     $tb = file_get_contents('http://ftp.apnic.net/apnic/stats/apnic/delegated-apnic-latest');
     $tb_array = explode("\n", $tb);
@@ -53,7 +53,7 @@ function get_china_ip_table($ipjson){
     fclose($fp);
     unset($ts_china);
 }
-# ****** ´Ójson¸ñÊ½Êı¾İÖĞ¼ì²âIPÊÇ·ñÀ´×ÔÖĞ¹ú
+# ****** ä»jsonæ ¼å¼æ•°æ®ä¸­æ£€æµ‹IPæ˜¯å¦æ¥è‡ªä¸­å›½
 function check_is_china_ip($ip, $ipjson){
     $ip_addr = explode('.', $ip);
     if(count($ip_addr) < 4) return false;
