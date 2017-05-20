@@ -47,14 +47,14 @@ function check_cn($cn){
 	
 	$cn = strtoupper($cn);
 	if (!file_exists($json)) die(' json file does not exist');
-    $tb = json_decode(file_get_contents($json),true);
-	$cn = array_search_re($cn, $tb);
+    	$tb = json_decode(file_get_contents($json),true);
+	$cn_array = array_search_re($cn, $tb);
 	$fn = $cn . '-ip-segment.txt';
 	@unlink($fn);
-	foreach($cn as $c){
-		$cnip = $c[2] .'.'. $c[3] .'.'. $c[4] . "0\r\n";
-		file_put_contents(,$cnip, FILE_APPEND);
-    }
+	foreach($cn_array as $c){
+		$cnip = $c[2] .'.'. $c[3] .'.'. $c[4] . ".0\r\n";
+		file_put_contents($fn, $cnip, FILE_APPEND);
+    	}
 }
 
 #查询 IP 属地
