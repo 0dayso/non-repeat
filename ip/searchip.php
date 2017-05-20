@@ -53,7 +53,8 @@ function check_cn($cn){
 	@unlink($fn);
 	foreach($cn_array as $c){
 		$cnip = $c[2] .'.'. $c[3] .'.'. $c[4] . ".0\r\n";
-		file_put_contents($fn, $cnip, FILE_APPEND);
+		if (is_writable($fn)) file_put_contents($fn, $cnip, FILE_APPEND);
+		else die('write false');
     	}
 }
 
