@@ -1,16 +1,39 @@
 ﻿<?php
-error_reporting(E_ALL);
-ini_set('display_errors', '1');
+# error_reporting(E_ALL);
+# ini_set('display_errors', '1');
 
 
-$source_path = './html';
+$source_path = '/home/wwwroot/default/html'; # 最后不加 /
 
 set_time_limit(0);
 header("Content-type: text/html;charset=utf-8");
 
 echo "<br>\r\n 正在修改文件\r\n<br>";
 customize_flush();
-$footer = '</div></div><div class="panel-footer clearfix"><center>&copy; 2017 <a href="http://ys138.win">伊索笔记</a> 版权所有  </center><span class="pull-right copyright"></div>';
+
+$footer  = '</div></div>';
+$footer .= '<table width="66%">';
+$footer .= '    <tr><td>';
+$footer .= '    <div>';
+$footer .= '    <aside id="search-3" class="panel panel-default widget clearfix widget_search">';
+$footer .= '        <form class="input-group" role="search" method="get" id="searchform" action="https://ys138.win/">';
+$footer .= '        <span class="input-group-addon">搜索</span>';
+$footer .= '        <input type="text" class="form-control" placeholder="请输入检索关键词 &hellip;" name="s" id="s" size="10" width=50% required>';
+$footer .= '        <span class="input-group-btn">';
+$footer .= '            <button type="submit" class="btn btn-default" id="searchsubmit"><span class="glyphicon glyphicon-search"></span></button>';
+$footer .= '        </span>';
+$footer .= '        </form>';
+$footer .= '    </aside>';
+$footer .= '    </div>';
+$footer .= '    <!-- #sidebar -->';
+$footer .= '	 </td></tr>';
+$footer .= '    <tr><td>';
+$footer .= '    <div class="panel-footer clearfix">';
+$footer .= '        <center>&copy; 2017 <a href="http://ys138.win">伊索笔记</a>版权所有</center>';
+$footer .= '        <span class="pull-right copyright"></span>';
+$footer .= '	 </div>';
+$footer .= '    </td></tr>';
+$footer .= '</table>';
 
 $array_files = getDir($source_path);
 $max = count($array_files);
@@ -28,8 +51,8 @@ for($i = 0;$i < $max;$i++){
 		}
 		if(strstr($str, 'popular-posts">')){
 			$arr = explode('<aside id="wpp-2" class="panel panel-default widget clearfix popular-posts">', $str , 2);
-			$arr2 = @explode('</footer>', $arr[1] , 2);
-			$new_str = @$arr[0] . $arr2[1] . $footer;
+			$arr2 = @explode('</footer>', @$arr[1] , 2);
+			$new_str = @$arr[0] . @$arr2[1] . $footer;
 			$str = $new_str;
 		}
 		$arr = explode("\n", $str);
@@ -42,8 +65,8 @@ for($i = 0;$i < $max;$i++){
 		if(strstr($filename, '/201')){
 			# echo $filename;
 			$arr_x = explode('<div class="entry-footer clearfix" role="toolbar">', $str);	
-			$arr2 = explode('<nav class="pager"', $arr_x[1]);
-			$str = $arr_x[0] . '</div><nav class="pager"' . $arr2[1];
+			$arr2 = explode('<nav class="pager"', @$arr_x[1]);
+			$str = $arr_x[0] . '</div><nav class="pager"' . @$arr2[1];
                         $new_str = preg_replace('#<script[^>]*?>.*?<\/script\s*>#si', '', $str);
                         $str = $new_str;
 		}
