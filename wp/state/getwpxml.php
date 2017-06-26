@@ -12,7 +12,7 @@ customize_flush();
 # 设置wordpress地址、账户和密码
 $wp_host = 'https://ys138.win/';                 # wordpress地址
 $user = 'admin';        	                     # 账号
-$passwd = 'Home#1981';                           # 密码
+$passwd = 'passwd';                           # 密码
 $xmlfile = 'wordpress.' . $date . '.xml';        # xml 文件名
 
 $static_host = 'ysuo.org';                       # 静态镜像域名，不带http或者https，最后边不加 /
