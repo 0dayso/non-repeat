@@ -1,4 +1,5 @@
 
+
 <?php
 //  ./randpw.php?low=on&upp=on&num=on&spe=on&len=1024
 header("Content-type:text/html;charset=utf-8");
@@ -137,3 +138,4 @@ HTML;
  
 echo $html;
 }
+
