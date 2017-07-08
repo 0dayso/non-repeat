@@ -41,6 +41,9 @@ $html = strip_space_enter($html, $tags = '<tr><th><td>', $n = 10);
 $html = str_replace(array(':',), array('',), $html);
 $html = str_replace(array('<tr><th>', '</th><td>', '</td></tr>',), array('"', '":"', '",',), $html);
 $dbip_array = json2array($html);
+$t = explode('UTC', $dbip_array['Timezone']);
+$t = substr($t[1], 0, -1);
+$dbip_array['Local time'] = date('Y-m-d H:i:s', strtotime("$t hours"));
 
 $url = 'http://geoiplookup.net/ip/'.$ip_addr;
 $geoiplookup = $linefeed . parse_url($url)['host'] . $linefeed;
@@ -54,9 +57,6 @@ $html = strip_space_enter($html, $tags = '<div>', $n = 10);
 $html = str_replace(array(':',), array('',), $html);
 $html = str_replace(array('<div class="ipinfo">', '</div><div class="ipdata">', '</div>'), array('"', '":"', '",',), $html);
 $geoiplookup_array = json2array($html);
-$t = explode('UTC', $geoiplookup_array['Timezone']);
-$t = rtrim($t, ')');
-$geoiplookup_array['Local time'] = date('Y-m-d H:i:s', strtotime("$t hours"));
 
 unset($url);
 unset($data);
