@@ -14,7 +14,7 @@ if(isset($argc)){
 	}
 }else if(empty($_GET['ip'])){
 	$ip_addr = $_SERVER['REMOTE_ADDR'];
-	$ip_addr = '192.210.192.248';
+	#$ip_addr = '192.210.192.248';
 	$host = $ip_addr;
 }else{
 	$ip_addr = gethostbyname($_GET['ip']);
@@ -27,7 +27,7 @@ $hostname = gethostbyaddr($ip_addr);
 $linefeed = "\r\n";
 
 #　获取数据
-$url = 'https://db-ip.com/67.21.65.56';
+$url = 'https://db-ip.com/'.$ip_addr;
 $dbip = parse_url($url)['host'] . $linefeed;
 $data = getipinfo($url);
 
@@ -40,7 +40,7 @@ $html = str_replace(array(':',), array('',), $html);
 $html = str_replace(array('<tr><th>', '</th><td>', '</td></tr>',), array('"', '":"', '",',), $html);
 $dbip_array = json2array($html);
 
-$url = 'http://geoiplookup.net/ip/67.21.65.56';
+$url = 'http://geoiplookup.net/ip/'.$ip_addr;
 $geoiplookup = $linefeed . parse_url($url)['host'] . $linefeed;
 $data = getipinfo($url);
 
@@ -58,7 +58,7 @@ unset($data);
 unset($array);
 unset($html);
 
-$data = array("ip" => "192.210.192.248");
+$data = array("ip" => $ip_addr);
 $url = 'http://www.ipip.net/ip/ajax/';
 $ipip = $linefeed . parse_url($url)['host'] . $linefeed;
 $result = http($url, $data, $json = false);
@@ -71,10 +71,17 @@ $html .= strip_tags('<table' . $array2[0] .'</table>', '<td>');
 $html = strip_space_enter($html, $tags = '<span><td>', $n = 50);
 $html = strip_space_enter($html, $tags = '<span><td>', $n = 30);
 $html = str_replace(array('</span>', '<td>',), array("</span>\r\n", "\r\n<td>"),  $html);
-$html = str_replace(array('</span>', '<td>', '</td>', '<span id="myself">'), array(""),  $html);
 
 $array = explode("\r\n", $html);
-$ipip_array = array('IPlocation' => $array[2], 'ASN' => $array[4], 'IPsegment' => $array[5], 'ISP' => $array[6]);
+foreach($array as $v){
+	if(strstr($v, '<span id="myself">')) $iplocation = $v;
+}
+$iplocation = str_replace(array('</span>', '<span id="myself">'), array(""),  $iplocation);
+
+$html = str_replace(array('</td>', "\r\n"), array(""),  $html);
+$array = explode('<td>', $html);
+$ipip_array = array('IPlocation' => $iplocation, 'ASN' => $array[1], 'IPsegment' => $array[2], 'ISP' => $array[3]);
+
 
 unset($url);
 unset($data);
@@ -87,7 +94,7 @@ unset($array2);
 # 打印数据到客户机
 $tdpre = '<tr><td style="width:150px;"><pre>';
 $tdoff = '</pre></td></tr>';
-$td = '</td><td style="width:5px;"></td><td style="width:300px;"><pre>';
+$td = '</td><td style="width:5px;"></td><td style="width:500px;"><pre>';
 
 $html = html_form($ip_addr);
 //--------------------------------//
@@ -114,7 +121,7 @@ foreach($ipip_array as $key => $value){
 $html .= '</table></div>';
 //--------------------------------//
 
-$html .= '<center></body></html>';
+$html .= '<center><br><br><hr width=60%><br><br></body></html>';
 echo ($html);
 //echo beautify_html($html);
 
@@ -261,8 +268,8 @@ function html_form($ip){
     $html .= '<style type="text/css">';
     $html .= 'pre{border:dashed 1px green;padding:6px; background-color:#C1CDCD;color:#000000; font-size:15px}';
     $html .= 'td{padding:2px;}';
-    $html .= '#search {width:460px;float:center;padding:1px;}';
-    $html .= '.searchbox {width:370px;padding:4px;font-size: 1em;}';
+    $html .= '#search {width:660px;float:center;padding:1px;}';
+    $html .= '.searchbox {width:570px;padding:4px;font-size: 1em;}';
     $html .= '.searchbtn {width:90px;padding:4px;background-color:green;border: 0;font-size: 16px;color:#000000;}';
     $html .= '#content {float:center;}';
     $html .= '</style></head>';
