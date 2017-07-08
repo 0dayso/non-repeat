@@ -5,7 +5,7 @@
  *php-cli:  /usr/local/bin/php -f dbip.php <ip_address>
  */
 
-//=========== ·ÖÎöÌá½»µÄÊı¾İ ===========//
+//=========== åˆ†ææäº¤çš„æ•°æ® ===========//
 if(isset($argc)){
 	if(empty($argv[1])) exit("usage: {$argv[0]} <ip_address>\n");
 	else{
@@ -26,7 +26,7 @@ $hostname = gethostbyaddr($ip_addr);
 
 $linefeed = "\r\n";
 
-#¡¡»ñÈ¡Êı¾İ
+#ã€€è·å–æ•°æ®
 $url = 'https://db-ip.com/67.21.65.56';
 $dbip = parse_url($url)['host'] . $linefeed;
 $data = getipinfo($url);
@@ -48,7 +48,7 @@ $array = explode('<h2', $data);
 $html = '<h2' . $array[1] . '<h2' . $array[2];
 $html = stripHtmlTags($tags = 'h2', $html, $content = true);
 $html = strip_space_enter($html, $tags = '<div>', $n = 10);
-# $html = str_replace(array('"',), array('\"',), $html); // ¶Ô " ×ªÒå
+# $html = str_replace(array('"',), array('\"',), $html); // å¯¹ " è½¬ä¹‰
 $html = str_replace(array(':',), array('',), $html);
 $html = str_replace(array('<div class="ipinfo">', '</div><div class="ipdata">', '</div>'), array('"', '":"', '",',), $html);
 $geoiplookup_array = json2array($html);
@@ -84,14 +84,14 @@ unset($result);
 unset($array1);
 unset($array2);
 
-# ´òÓ¡Êı¾İµ½¿Í»§»ú
+# æ‰“å°æ•°æ®åˆ°å®¢æˆ·æœº
 $tdpre = '<tr><td style="width:150px;"><pre>';
 $tdoff = '</pre></td></tr>';
 $td = '</td><td style="width:5px;"></td><td style="width:300px;"><pre>';
 
 $html = html_form($ip_addr);
 //--------------------------------//
-$html .= '<div id="content"><br><b>´Ó' .$geoiplookup. '²éÕÒµÄ½á¹û</b><br>';
+$html .= '<div id="content"><br><b>ä»' .$geoiplookup. 'æŸ¥æ‰¾çš„ç»“æœ</b><br>';
 $html .= '<table>';
 foreach($geoiplookup_array as $key => $value){
 	$html .= $tdpre . $key . $td . $value . $tdoff;;
@@ -99,14 +99,14 @@ foreach($geoiplookup_array as $key => $value){
 $html .= '</table></div>';
 
 //--------------------------------//
-$html .= '<div id="content"><br><b>´Ó' .$dbip. '²éÕÒµÄ½á¹û</b><br>';
+$html .= '<div id="content"><br><b>ä»' .$dbip. 'æŸ¥æ‰¾çš„ç»“æœ</b><br>';
 $html .= '<table>';
 foreach($dbip_array as $key => $value){
 	$html .= $tdpre . $key . $td . $value . $tdoff;;
 }
 $html .= '</table></div>';
 //--------------------------------//
-$html .= '<div id="content"><br><b>´Ó' .$ipip. '²éÕÒµÄ½á¹û</b><br>';
+$html .= '<div id="content"><br><b>ä»' .$ipip. 'æŸ¥æ‰¾çš„ç»“æœ</b><br>';
 $html .= '<table>';
 foreach($ipip_array as $key => $value){
 	$html .= $tdpre . $key . $td . $value . $tdoff;;
@@ -121,9 +121,9 @@ echo ($html);
 
 
 /**
- * ÒÔÏÂÓÃ API µÄ·½Ê½Ë÷È¡Êı¾İ
+ * ä»¥ä¸‹ç”¨ API çš„æ–¹å¼ç´¢å–æ•°æ®
  *
- * //=========== »ñÈ¡ db-ip µÄÊı¾İ ===========//
+ * //=========== è·å– db-ip çš„æ•°æ® ===========//
  * require "dbip-client.class.php";
  * $api_key = "f7d40841c01f728373219b59691bc3d50028a2d7";
  * 
@@ -141,7 +141,7 @@ echo ($html);
  * 		}
  * 	}else{
  * 		if($keyinfo['queriesLeft'] == 0){
- * 			echo $linefeed. '½ñÌìÒÑ¾­Ê¹ÓÃÁË' .$keyinfo['queriesPerDay'];
+ * 			echo $linefeed. 'ä»Šå¤©å·²ç»ä½¿ç”¨äº†' .$keyinfo['queriesPerDay'];
  * 			header("refresh:3; url=http://db-ip.com");
  * 			exit();
  * 		}
@@ -153,12 +153,12 @@ echo ($html);
  * 		}
  * 		exit;
  * 	}
- * //=========== »ñÈ¡ geoiplookup µÄÊı¾İ ===========//
+ * //=========== è·å– geoiplookup çš„æ•°æ® ===========//
  * 	$geoiplookup = 'http://api.geoiplookup.net/?query=' . $ip;
  * 	$ipinfo = getipinfo($geoiplookup);
  * 	$data = xml_parser($ipinfo);
  * 	$ipinfo = $data['results']['result'];
- * //=========== »ñÈ¡ ipip µÄÊı¾İ ===========//
+ * //=========== è·å– ipip çš„æ•°æ® ===========//
  * 	$ipip = 'http://freeapi.ipip.net/?ip=' . $ip . '&lang=EN';
  * 	$ipinfo = getipinfo($ipip);
  * 	$ipinfo = json_decode($ipinfo);
@@ -187,31 +187,31 @@ $continent = $t[0];
 */
 
 
-/************** º¯ÊıÇø£¬ÎŞĞèĞŞ¸Ä ************/
+/************** å‡½æ•°åŒºï¼Œæ— éœ€ä¿®æ”¹ ************/
 
-# JSON ×ªÊı×é
+# JSON è½¬æ•°ç»„
 function json2array($html){
 	$obj = json2object($html);
 	$html = object2array($obj);
 	return $html;
 }
 
-# JSON ×ª object
+# JSON è½¬ object
 function json2object($html){
     $html = rtrim($html, ",");
-	$html = str_replace(array('/',), array('\/',), $html); // Ôö¼ÓĞèÒª×ªÒåµÄ×Ö·û
+	$html = str_replace(array('/',), array('\/',), $html); // å¢åŠ éœ€è¦è½¬ä¹‰çš„å­—ç¬¦
     $html = '{'. $html .'}';
     $html = json_decode($html);
 	return $html;
 }
 
-# object ×ªÊı×é
+# object è½¬æ•°ç»„
 function object2array(&$object){
 	$object = json_decode(json_encode($object),true);
 	return $object;
 }
 
-# ½âÎö XML
+# è§£æ XML
 function xml_parser($str){ 
     $xml_parser = xml_parser_create(); 
     if(!xml_parse($xml_parser,$str,true)){ 
@@ -222,7 +222,7 @@ function xml_parser($str){
     } 
 }
 
-# É¾³ı¿Õ¸ñºÍ»Ø³µ
+# åˆ é™¤ç©ºæ ¼å’Œå›è½¦
 function strip_space_enter($html, $tags, $n){
 	$html = strip_tags($html, $tags);
 	$html = trim($html);
@@ -233,11 +233,11 @@ function strip_space_enter($html, $tags, $n){
 	return $html;
 }
 
-# É¾³ıÖ¸¶¨±êÇ©
+# åˆ é™¤æŒ‡å®šæ ‡ç­¾
 function stripHtmlTags($tags, $str, $content = true)
 {
     $html = [];
-    // ÊÇ·ñ±£Áô±êÇ©ÄÚµÄtext×Ö·û
+    // æ˜¯å¦ä¿ç•™æ ‡ç­¾å†…çš„textå­—ç¬¦
     if($content){
         foreach (array($tags) as $tag) {
             $html[] = '/(<' . $tag . '.*?>(.|\n)*?<\/' . $tag . '>)/is';
@@ -251,9 +251,9 @@ function stripHtmlTags($tags, $str, $content = true)
     return $data;
 }
 
-# form ±íµ¥
+# form è¡¨å•
 function html_form($ip){
-    $title = '²éÕÒµÄIPÎª' . $ip;
+    $title = 'æŸ¥æ‰¾çš„IPä¸º' . $ip;
 
 	$html = '';
     $html .= '<html><head><meta http-equiv="content-type" content="text/html;charset=utf-8">';
@@ -268,7 +268,7 @@ function html_form($ip){
     $html .= '</style></head>';
     
     $html .= '<body><br><center><div id="search">';
-    $html .= '<b> ²éÕÒ IP µØÖ·</b>';
+    $html .= '<b> æŸ¥æ‰¾ IP åœ°å€</b>';
     $html .= '<form  method="get" action="?ip="  id="searchform" onsubmit="return false;">';
     $html .= '<input class="searchbox" type="text" name="ip" value="g.cn" />';
     $html .= '<input class="searchbtn" type="submit" onclick="window.location.href=this.form.action + this.form.ip.value;" />';
@@ -277,7 +277,7 @@ function html_form($ip){
     return $html;
 }
 
-# ÓÃ CURL »ñÈ¡ÍøÒ³ÄÚÈİ
+# ç”¨ CURL è·å–ç½‘é¡µå†…å®¹
 function getipinfo($url){
     $ch = curl_init();
     curl_setopt($ch, CURLOPT_URL, $url);
@@ -294,7 +294,7 @@ function getipinfo($url){
 	}
 }
 
-# ÓÃcurlÄ£Äâpost·¢ËÍjsonÊı¾İ
+# ç”¨curlæ¨¡æ‹Ÿpostå‘é€jsonæ•°æ®
 # http://blog.csdn.net/pangchengyong0724/article/details/52103962
 function http($url, $data, $json){
 	
@@ -333,7 +333,7 @@ function http($url, $data, $json){
     //return json_decode($res, true);
 }
 
-# HTML ¸ñÊ½»¯
+# HTML æ ¼å¼åŒ–
 function beautify_html($html){
     $tidy_config = array(
         'clean' => false,
@@ -350,6 +350,5 @@ function beautify_html($html){
     }
     else return $html;
 }
-
 
 
