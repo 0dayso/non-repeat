@@ -5,6 +5,8 @@
  *php-cli:  /usr/local/bin/php -f dbip.php <ip_address>
  */
 
+date_default_timezone_set('UTC');
+
 //=========== 分析提交的数据 ===========//
 if(isset($argc)){
 	if(empty($argv[1])) exit("usage: {$argv[0]} <ip_address>\n");
@@ -52,6 +54,9 @@ $html = strip_space_enter($html, $tags = '<div>', $n = 10);
 $html = str_replace(array(':',), array('',), $html);
 $html = str_replace(array('<div class="ipinfo">', '</div><div class="ipdata">', '</div>'), array('"', '":"', '",',), $html);
 $geoiplookup_array = json2array($html);
+$t = explode('UTC', $geoiplookup_array['Timezone']);
+$t = rtrim($t, ')');
+$geoiplookup_array['Local time'] = date('Y-m-d H:i:s', strtotime("$t hours"));
 
 unset($url);
 unset($data);
