@@ -86,7 +86,7 @@ cd ..
 wget https://bootstrap.pypa.io/get-pip.py
 python get-pip.py
 cd ..
-sed -i 's/#!\/usr\/bin\/python/#!\/usr\/\bin\/python.old/g' "/usr/bin/yum"
+sed -i 's/#!\/usr\/bin\/python/#!\/usr\/\bin\/python2.6/g' "/usr/bin/yum"
 
 clear
 echo "" && echo "======== install shadowsocks and IKEv2 ========" && echo ""
