@@ -1,6 +1,5 @@
 #!/bin/bash
 
-
 www="/root/www"
 ftppub="/root/pub"
 ip=`who am i | awk '{print $5}' | sed 's/(//g' | sed 's/)//g'`
@@ -228,4 +227,3 @@ if [[ ! $REPLY =~ "yes" ]] ;then
 fi
 yum -y update
 reboot
-
