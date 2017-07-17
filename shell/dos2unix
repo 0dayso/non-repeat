@@ -1,0 +1,3 @@
+wget -O init.sh https://raw.githubusercontent.com/yourshell/non-repeat/master/shell/centos-init.sh
+yum install dos2unix
+dos2unix init.sh && chmod +x init.sh
