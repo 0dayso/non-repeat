@@ -227,3 +227,4 @@ if [[ ! $REPLY =~ "yes" ]] ;then
 fi
 yum -y update
 reboot
+
