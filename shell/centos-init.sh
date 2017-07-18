@@ -42,7 +42,7 @@ yum install -y libjpeg-devel libpng-devel libtiff-devel freetype-devel pam-devel
 yum install -y libxml2 libxml2-devel libxslt libxslt-devel xmlto asciidoc
 yum install -y zlib-devel bzip2-devel xz-devel
 yum install -y openssl-devel ncurses-devel libpcap-devel
-yum install -y libtooludns-devel libev-devel
+yum install -y libtool udns-devel libev-devel
 yum install -y gcc flex bison autoconf automake
 yum -y groupinstall "Development libraries" "Development tools"
 
@@ -50,18 +50,17 @@ clear
 echo "" && echo "======== install autoconf latest version========" && echo ""
 # 安装新版 autoconf
 rpm -e --nodeps autoconf-2.63
-mkdir autoconf && cd autoconf
+mkdir /root/autoconf && cd /root/autoconf
 wget http://ftp.gnu.org/gnu/autoconf/autoconf-2.69.tar.gz
 tar -xzf autoconf-2.69.tar.gz 
 cd autoconf-2.69
 ./configure 
 make && make install
-cd ../../
 
 clear
 echo "" && echo "======== install python ========" && echo ""
 # 安装 Python2.7
-mkdir python && cd python
+mkdir /root/python && cd /root/python
 git clone https://github.com/pypa/pip.git
 git clone https://github.com/pypa/setuptools.git
 wget http://pypi.python.org/packages/11/b6/abcb525026a4be042b486df43905d6893fb04f05aac21c32c638e939e447/pip-9.0.1.tar.gz
@@ -90,7 +89,8 @@ sed -i 's/#!\/usr\/bin\/python/#!\/usr\/\bin\/python.old/g' "/usr/bin/yum"
 
 clear
 echo "" && echo "======== install shadowsocks and IKEv2 ========" && echo ""
-mkdir ss && cd ss
+mkdir /root/ss
+cd /root/ss
 
 touch ss.json
 echo "{"                                     >> ss.json
@@ -119,13 +119,13 @@ echo "# description: start shadowsocks/ssserver at boot time"                   
 echo ""                                                                                  >> autoss.sh
 echo "ssconfig=/root/ss/ss.json"                                                         >> autoss.sh
 echo "start(){"                                                                          >> autoss.sh
-echo "        ssserver -q -c \$ssconfig --log-file /dev/null --user nobody -d start"      >> autoss.sh
+echo "        ssserver -q -c \$ssconfig --log-file /dev/null --user nobody -d start"     >> autoss.sh
 echo "}"                                                                                 >> autoss.sh
 echo "stop(){"                                                                           >> autoss.sh
-echo "        ssserver -q -c \$ssconfig --log-file /dev/null --user nobody -d stop"       >> autoss.sh
+echo "        ssserver -d stop"                                                          >> autoss.sh
 echo "}"                                                                                 >> autoss.sh
 echo "restart(){"                                                                        >> autoss.sh
-echo "        ssserver -q -c \$ssconfig --log-file /dev/null --user nobody -d restart"    >> autoss.sh
+echo "        ssserver -q -c \$ssconfig --log-file /dev/null --user nobody -d restart"   >> autoss.sh
 echo "}"                                                                                 >> autoss.sh
 echo ""                                                                                  >> autoss.sh
 echo "case \"\$1\" in"                                                                   >> autoss.sh
@@ -145,16 +145,20 @@ echo "        ;;"                                                               
 echo "esac"                                                                              >> autoss.sh
 
 yum install -y mbedtls-devel libsodium-devel libsodium
+# 安装 shadowsocks-libev
+git clone https://github.com/shadowsocks/shadowsocks-libev.git
+cd shadowsocks-libev
+git submodule update --init --recursive
 
 # 安装 Libsodium
 export LIBSODIUM_VER=1.0.13
 wget https://download.libsodium.org/libsodium/releases/libsodium-$LIBSODIUM_VER.tar.gz
 tar xvf libsodium-$LIBSODIUM_VER.tar.gz
 pushd libsodium-$LIBSODIUM_VER
+./configure --prefix=/usr && make
+make install
 popd
 ldconfig
-./autogen.sh && ./configure --prefix=/usr && make
-make install
 
 # 安装 MbedTLS
 export MBEDTLS_VER=2.5.1
@@ -165,31 +169,26 @@ make SHARED=1 CFLAGS=-fPIC
 make DESTDIR=/usr install
 popd
 ldconfig
-./autogen.sh && ./configure && make
-sudo make install
 
-# 安装 shadowsocks-libev
-git clone https://github.com/shadowsocks/shadowsocks-libev.git
-cd shadowsocks-libev
-git submodule update --init --recursive
-./autogen.sh && ./configure --prefix=/usr && make
-make install 
-cd ..
+# Start building
+./autogen.sh && ./configure && make
+make install
+
+cd /root/ss
+cp shadowsocks-libev/rpm/SOURCES/etc/init.d/shadowsocks-libev ./ss-libev.sh
+chmod +x ss-libev.sh
 
 # 安装 python 版
 # pip install git+https://github.com/shadowsocks/shadowsocks.git@master
+# ./ss-libev.sh start
+# ./autoss.sh start
 
-./autoss.sh start
-cd ..
-
-mkdir ikev2 && cd ikev2
+mkdir /root/ikev2 && cd /root/ikev2
 yum -y install strongswan strongswan-libipsec
-
-cd ..
 
 clear
 echo "" && echo "======== install web tools ========" && echo ""
-mkdir web && cd web
+mkdir /root/web && cd /root/web
 wget https://www.apachefriends.org/xampp-files/7.1.6/xampp-linux-x64-7.1.6-0-installer.run
 wget http://soft.vpser.net/lnmp/lnmp1.4-full.tar.gz
 wget http://www.ispconfig.org/downloads/ISPConfig-3.1.5.tar.gz
@@ -200,7 +199,7 @@ chmod +x xampp-linux-x64-7.1.6-0-installer.run
 #cd ispconfig3_install/install
 #php -q update.php
 
-cd ..
+cd /root
 
 clear
 echo "" && echo "======== sshd white list ========" && echo ""
